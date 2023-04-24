@@ -1,0 +1,22 @@
+{
+    "workspace.library": [
+        "/home/michiel/.config/nvim",
+        "/home/michiel/.local/share/nvim/lazy/lazy.nvim",
+        "/home/michiel/.local/share/nvim/lazy/nvim-lspconfig",
+        "/home/michiel/.local/share/nvim/lazy/go.nvim",
+        "/home/michiel/.local/share/nvim/lazy/guihua.lua",
+        "/home/michiel/.local/share/nvim/lazy/nvim-treesitter",
+        "/home/michiel/.local/share/nvim/lazy/tokyonight.nvim",
+        "/nix/store/x55yfs57l7bm6ms0584lhwiz7h1zxr7n-neovim-unwrapped-0.9.0/share/nvim/runtime",
+        "/nix/store/x55yfs57l7bm6ms0584lhwiz7h1zxr7n-neovim-unwrapped-0.9.0/share/nvim/runtime/pack/dist/opt/matchit",
+        "/nix/store/x55yfs57l7bm6ms0584lhwiz7h1zxr7n-neovim-unwrapped-0.9.0/lib/nvim",
+        "/home/michiel/.local/state/nvim/lazy/readme",
+        "/home/michiel/.local/share/nvim/lazy/go.nvim/after",
+        "${3rd}/luassert/library",
+        "${3rd}/lfs/library"
+    ],
+    "diagnostics.globals": [
+        "vim",
+        "lfs"
+    ]
+}
