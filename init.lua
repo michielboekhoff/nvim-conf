@@ -60,7 +60,12 @@ require("lazy").setup(
 					require('neoclip').setup()
 				end,
 			},
-			'gennaro-tedesco/nvim-peekup',
+			{
+				'gennaro-tedesco/nvim-peekup',
+				config = function()
+					require('nvim-peekup.config').on_keystroke["paste_reg"] = '+'
+				end,
+			},
 			{
 				"nvim-neo-tree/neo-tree.nvim",
 				branch = "v2.x",
@@ -187,7 +192,7 @@ vim.cmd [[ set number ]]
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
-vim.cmd [[set clipboard+=unnamed,unnamedplus]]
+vim.cmd [[set clipboard+=unnamedplus,unnamed]]
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff',
