@@ -48,7 +48,7 @@ require("lazy").setup(
 			},
 			{
 				'nvim-telescope/telescope.nvim',
-				tag = '0.1.1',
+				tag = '0.1.5',
 				dependencies = { 'nvim-lua/plenary.nvim' }
 			},
 			{
@@ -68,12 +68,22 @@ require("lazy").setup(
 			},
 			{
 				"nvim-neo-tree/neo-tree.nvim",
-				branch = "v2.x",
+				branch = "v3.x",
 				dependencies = {
 					"nvim-lua/plenary.nvim",
 					"nvim-tree/nvim-web-devicons",
 					"MunifTanjim/nui.nvim",
-				}
+				},
+				opts = {
+					filesystem = {
+						follow_current_file    = true,
+						use_libuv_file_watcher = true,
+						filtered_items         = {
+							hide_dotfiles   = false,
+							hide_gitignored = false,
+						},
+					},
+				},
 			},
 			{
 				'rmagatti/auto-session',
@@ -88,7 +98,7 @@ require("lazy").setup(
 			{
 				'romgrk/barbar.nvim',
 				dependencies = { 'nvim-tree/nvim-web-devicons' },
-				init = function() vim.g.barbar_auto_setup = false end,
+				init = function() vim.g.barbar_auto_setup = true end,
 			},
 			{
 				"NTBBloodbath/galaxyline.nvim",
@@ -113,6 +123,7 @@ require("lazy").setup(
 			'hrsh7th/nvim-cmp',
 			'hrsh7th/vim-vsnip',
 			'hrsh7th/cmp-vsnip',
+			'github/copilot.vim',
 			{
 				"mg979/vim-visual-multi",
 				branch = "master",
@@ -130,6 +141,14 @@ require("lazy").setup(
 				end,
 			},
 			'tpope/vim-fugitive',
+			{
+				'mrcjkb/rustaceanvim',
+				version = '^4',
+				ft = { 'rust' },
+			},
+			'nvim-lua/plenary.nvim',
+			'mfussenegger/nvim-dap',
+			'jparise/vim-graphql',
 		}
 	}
 )
@@ -160,6 +179,14 @@ require("lspconfig").lua_ls.setup {
 		},
 	},
 }
+
+require("lspconfig").nil_ls.setup {}
+
+require("lspconfig").terraformls.setup {}
+vim.api.nvim_create_autocmd("BufWritePre", {
+	callback = vim.lsp.buf.format,
+	pattern = { "*.tf", "*.tfvars" },
+})
 
 require 'nvim-treesitter.configs'.setup {
 	highlight = {
@@ -202,7 +229,7 @@ vim.keymap.set('n', '<Space><Space>', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>fr', builtin.oldfiles, {})
-vim.keymap.set('n', '<leader>op', ':NeoTreeShowToggle<CR>')
+vim.keymap.set('n', '<leader>op', ':Neotree toggle<CR>')
 vim.keymap.set('c', 'bd', 'BufferClose')
 
 vim.cmd [[
@@ -211,8 +238,15 @@ vim.cmd [[
 	nnoremap <silent>    <A-c> <Cmd>BufferClose<CR>
 	nnoremap <silent>    <A-s-c> <Cmd>BufferRestore<CR>
 	nnoremap <silent> <C-p>    <Cmd>BufferPick<CR>
-	nnoremap <silent> <C-p>    <Cmd>BufferPickDelete<CR>
+	nnoremap <silent> <C-A-p>    <Cmd>BufferPickDelete<CR>
 ]]
+
+vim.cmd [[
+	set foldexpr=nvim_treesitter#foldexpr()
+	set foldmethod=expr
+	set foldlevelstart=20
+]]
+
 
 vim.o.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
